@@ -3,13 +3,17 @@
 require 'gtk3'
 
 class ListBoxRowWithData < Gtk::ListBoxRow
-  attr_accessor :data
+  attr_reader :data
 
   def initialize(data)
     super()
 
     @data = data
     add Gtk::Label.new data
+  end
+
+  def <=>(other)
+    @data.downcase <=> other.data.downcase
   end
 end
 
@@ -78,7 +82,7 @@ class ListBoxWindow < Gtk::Window
 
     box_outer.pack_start listbox2, expand: true, fill: true
     listbox2.set_sort_func do |row1, row2|
-      row1.data.downcase <=> row2.data.downcase
+      row1 <=> row2
     end
 
     listbox2.set_filter_func do |row|
