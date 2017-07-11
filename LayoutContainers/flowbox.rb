@@ -19,6 +19,8 @@ class ColorDrawingArea < Gtk::DrawingArea
     super
     cr.set_source_rgba *@rgba.to_a
     cr.paint
+
+    return false
   end
 end
 
